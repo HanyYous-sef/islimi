@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:islami/Home_Layout.dart';
-import 'package:islami/suraDetails/SuraDetails.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'AhdethDetails/AhdethDetails.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:islami/Home_Layout.dart';
+import 'package:islami/providers/app_provider.dart';
+import 'package:islami/suraDetails/SuraDetails.dart';
+import 'package:provider/provider.dart';
+
+import 'AhdethDetails/AhdethDetails.dart';
 import 'My_Themes.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) {
+        return AppProvider();
+      },
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -16,6 +23,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppProvider>(context);
+    // var providerThem=Provider.of<AppProviderThem>(context);
+
     return MaterialApp(
       title: 'Localizations Sample App',
       localizationsDelegates: [
@@ -28,23 +38,24 @@ class MyApp extends StatelessWidget {
         Locale('en'), // English, no country code
         Locale('ar'), // Spanish, no country code
       ],
-      locale: Locale('en'),
+      locale: Locale(provider.AppLangauge),
       debugShowCheckedModeBanner: false,
       initialRoute: HomeLayout.roudeName,
-      routes:{
-        HomeLayout.roudeName:(context)=>HomeLayout(),
-        SuraDetails.roudeName:(context)=>SuraDetails(),
-        AhdethDetails.roudeName:(context)=>AhdethDetails(),
+      routes: {
+        HomeLayout.roudeName: (context) => HomeLayout(),
+        SuraDetails.roudeName: (context) => SuraDetails(),
+        AhdethDetails.roudeName: (context) => AhdethDetails(),
       },
 
       theme: MyThemesData.lightTheme,
       darkTheme: MyThemesData.darkTheme,
+      themeMode: provider.themeMode,
       // theme: ThemeData(
       //   appBarTheme: const AppBarTheme(
       //       backgroundColor: Colors.transparent,
       //     elevation: 0.0,
-    //     )
-    //   ),
+      //     )
+      //   ),
     );
   }
 

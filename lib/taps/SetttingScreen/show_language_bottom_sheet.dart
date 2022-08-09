@@ -1,23 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:islami/providers/app_provider.dart';
+import 'package:provider/provider.dart';
 
 class ShowLanguageBottomSheet extends StatefulWidget {
-
   @override
-  State<ShowLanguageBottomSheet> createState() => _ShowLanguageBottomSheetState();
+  State<ShowLanguageBottomSheet> createState() =>
+      _ShowLanguageBottomSheetState();
 }
 
 class _ShowLanguageBottomSheetState extends State<ShowLanguageBottomSheet> {
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Column(
         children: [
-         SelectedLanguage('English',true),
-          SelectedLanguage('العربيه',false),
-
-          
+          InkWell(
+              onTap: () {
+                provider.ChangeAppLangauge('en');
+                Navigator.pop(context);
+              },
+              child: SelectedLanguage(
+                  'English', provider.AppLangauge == 'en' ? true : false)),
+          InkWell(
+              onTap: () {
+                provider.ChangeAppLangauge('ar');
+                Navigator.pop(context);
+              },
+              child: SelectedLanguage(
+                  'العربيه', provider.AppLangauge == 'en' ? false : true)),
         ],
       ),
     );
@@ -39,7 +52,6 @@ class _ShowLanguageBottomSheetState extends State<ShowLanguageBottomSheet> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(Language,style:Theme.of(context).textTheme.headline2),
-          Icon(Icons.check,size: 25),
         ],
       );
     }

@@ -54,21 +54,19 @@ List<HadethModel>allAhdeth=[];
   }
 
   void lodeAhdeth() async {
-    String content = await rootBundle.loadString('file/ahadeth .txt');
-    List<String>ahdeth=content.trim().split('#\r\n');
+    String content = await rootBundle.loadString('file/ahadeth.txt');
+    List<String> ahdeth = content.trim().split('#\r\n');
 
-    for(int i=0;i<ahdeth.length;i++)
-    {
-      String AllAhdethContent=ahdeth[i];
-      List<String> lines=AllAhdethContent.split('\n');
-      String titel=lines[0];
+    for (int i = 0; i < ahdeth.length; i++) {
+      String AllAhdethContent = ahdeth[i];
+      List<String> lines = AllAhdethContent.split('\n');
+      String titel = lines[0];
       lines.removeAt(0);
       // HadethModel(titel,lines);
       // HadethModel HadethModel =HadethModel(titel,lines);
-      allAhdeth.add(HadethModel(titel,lines));
-      setState((){});
+      allAhdeth.add(HadethModel(titel, lines));
+      setState(() {});
     }
-
   }
 }
 class HadethModel{
