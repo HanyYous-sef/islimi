@@ -18,7 +18,11 @@ List<String>suraName=["الفاتحه","البقرة","آل عمران","الن�
       children: [
         Center(child: Image.asset('asstes/images/qran_hader_bg.png')),
         Expanded(
-          child: ListView.separated(separatorBuilder: (context,index){
+          child:
+          suraName.isEmpty?
+          Center(child: CircularProgressIndicator())
+              :
+          ListView.separated(separatorBuilder: (context,index){
 
               return Container(
                 margin: EdgeInsets.only(left: 50,right: 50),
